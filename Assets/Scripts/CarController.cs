@@ -8,11 +8,11 @@ public class CarController : MonoBehaviour
     [SerializeField] WheelCollider backRight;
     [SerializeField] WheelCollider frontLeft;
     [SerializeField] WheelCollider backLeft;
-
+    
     //variables
-    public float acceleration = 600f;
-    public float breakingForce = 300f;
-    public float maxTurnAngle = 18f;
+    public float acceleration = 3000f;
+    public float breakingForce = 1000f;
+    public float maxTurnAngle = 30f;
 
     private float currentAcceleration;
     private float currentBreak;
