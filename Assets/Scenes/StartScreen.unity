@@ -200,6 +200,7 @@ GameObject:
   - component: {fileID: 430662719}
   - component: {fileID: 430662721}
   - component: {fileID: 430662720}
+  - component: {fileID: 430662722}
   m_Layer: 5
   m_Name: other details
   m_TagString: Untagged
@@ -214,17 +215,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430662718}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.008432193, w: 0.9999645}
   m_LocalPosition: {x: 0, y: 0, z: 809.947}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 643850575}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.966}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 333.75162, y: 108.513794}
-  m_SizeDelta: {x: 4129.973, y: 2328.945}
+  m_AnchoredPosition: {x: 330.6527, y: 84}
+  m_SizeDelta: {x: 4269.279, y: 2573.9587}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &430662720
 MonoBehaviour:
@@ -264,6 +265,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430662718}
   m_CullTransparentMesh: 1
+--- !u!95 &430662722
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430662718}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1a6713d18a0b1fe4e93b3bfdf59729f6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &559985878
 GameObject:
   m_ObjectHideFlags: 0
@@ -1252,8 +1272,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 107.091354, y: 294.89178}
-  m_SizeDelta: {x: 3574.2, y: 1640.519}
+  m_AnchoredPosition: {x: 213.96062, y: 479.24115}
+  m_SizeDelta: {x: 3360.4612, y: 1271.8203}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1900033448
 MonoBehaviour:
@@ -1303,7 +1323,7 @@ Animator:
   m_GameObject: {fileID: 1900033446}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9f09bf64c2d46da40869d31e56fd43a6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

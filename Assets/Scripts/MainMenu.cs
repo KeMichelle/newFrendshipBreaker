@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement; //added the library which we need to switch from main menu to the game selection channel
+using UnityEngine.SceneManagement; //added the library which we need to switch to the chosen scene
 
 public class MainMenu : MonoBehaviour
 {
