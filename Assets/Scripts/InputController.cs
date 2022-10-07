@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour
 {
+    //we are using the defaults of unity
     public string inputSteerAxis = "Horizontal";
     public string inputThrottleAxis = "Vertical";
 
     public float ThrottleInput { get; private set; }
     public float SteerInput { get; private set; }
-
-    void Start()
-    {
-
-    }
 
     void Update()
     {

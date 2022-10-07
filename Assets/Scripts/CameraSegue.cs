@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class CameraSegue : MonoBehaviour
 {
-    public Transform Target;
+    //camera follows the car
 
+    public Transform Target;
     public Vector3 offset;
     public Vector3 eulerRotation;
     public float damper;
@@ -16,7 +17,6 @@ public class CameraSegue : MonoBehaviour
         transform.eulerAngles = eulerRotation;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Target == null)

@@ -15,7 +15,7 @@ public class Car : MonoBehaviour
     public Transform wheelRXback;
 
     public Transform centerMassa;
-    public float motorTorque = 1500f;
+    public float motorTorque = 2000f;
     public float maxTurn= 20f;
 
     public float Steer { get; set; }
@@ -24,9 +24,6 @@ public class Car : MonoBehaviour
     private Rigidbody _rigidbody;
     private Wheel[] wheels;
 
-
-
-   
     void Start()
     {
         wheels = GetComponentsInChildren<Wheel>();
@@ -34,42 +31,15 @@ public class Car : MonoBehaviour
         _rigidbody.centerOfMass = centerMassa.localPosition;
     }
 
-    
-
-
     void Update()
     {
-        Steer = GameManager.Instance.InputController.SteerInput;
-        Throttle = GameManager.Instance.InputController.ThrottleInput;
-
         foreach(var wheel in wheels)
         {
             wheel.SteerAngle = Steer * maxTurn;
             wheel.Torque = Throttle * motorTorque;
         }
-
-        /*
-        var pos = Vector3.zero;
-        var rot = Quaternion.identity;
-
-
-        wheelColliderLXfront.GetWorldPose(out pos, out rot);
-        wheelLXfront.position = pos;
-        wheelLXfront.rotation = rot;
-
-        wheelColliderRXfront.GetWorldPose(out pos, out rot);
-        wheelRXfront.position = pos;
-        wheelRXfront.rotation = rot;
-
-        wheelColliderLXback.GetWorldPose(out pos, out rot);
-        wheelLXfront.position = pos;
-        wheelLXfront.rotation = rot;
-
-        wheelColliderRXback.GetWorldPose(out pos, out rot);
-        wheelRXback.position = pos;
-        wheelRXback.rotation = rot;
-       */
     }
+
 
     void FixedUpdate()
     {

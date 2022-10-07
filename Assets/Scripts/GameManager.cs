@@ -13,9 +13,4 @@ public class GameManager : MonoBehaviour
         InputController = GetComponentInChildren<InputController>();
     }
 
-    
-    void Update()
-    {
-        
-    }
 }
