@@ -5,9 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/StartScreen.unity
     guid: 39a8ee98d562e59429342b87458f9ecc
@@ -15,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/SelectMenu.unity
     guid: 84d9c348e9a67494f94859ff5dee304a
   - enabled: 1
-    path: Assets/Scenes/GameScene.unity
+    path: Assets/Scenes/MiniKartGameScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
