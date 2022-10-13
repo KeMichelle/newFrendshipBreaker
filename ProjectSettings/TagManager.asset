@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Checkpoint
+  - Enviorment
+  - Spawn
+  - TopCollider
   layers:
   - Default
   - TransparentFX
@@ -15,8 +18,8 @@ TagManager:
   - WheelCollider
   - Car
   - Checkpoint
-  - 
-  - 
+  - Enviorment
+  - Spawn
   - 
   - 
   - 

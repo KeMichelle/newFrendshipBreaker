@@ -21,6 +21,8 @@ public class Car : MonoBehaviour
     public float Steer { get; set; }
     public float Throttle { get; set; }
 
+   
+
     private Rigidbody _rigidbody;
     private Wheel[] wheels;
 
