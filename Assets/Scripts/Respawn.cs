@@ -12,8 +12,7 @@ public class Respawn : MonoBehaviour
     //when the top collider touches the enviornment, it sets the new position into the closest respawn point.
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"{other.tag}");
-        if(other.CompareTag("Enviorment"))
+        if(other.CompareTag("Environment"))
         {
             respawnCar();
         }
@@ -30,14 +29,14 @@ public class Respawn : MonoBehaviour
     public void respawnCar()
     {
         GameObject spawnPoint = getClosestSpawnPoint();
-        Debug.Log($"{spawnPoint.name}");
         player.transform.SetPositionAndRotation(spawnPoint.transform.position, new Quaternion(0, 0, 0, 0));
         Physics.SyncTransforms();
     }
 
     public void Update()
     {
-        if (Input.GetKey(KeyCode.R))
+        PlayerMode mode = player.GetComponent<PlayerMode>();
+        if (Input.GetKey(KeyCode.R) && mode.tipoControllo != PlayerMode.ControlType.AI)
         {
             respawnCar();
         }

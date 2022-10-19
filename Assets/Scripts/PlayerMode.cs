@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerMode : MonoBehaviour
 {
-    public enum ControlType { HumanInput, AI}
-    public ControlType tipoControllo = ControlType.HumanInput;
+    public enum ControlType { HumanInput, AI }
+    public ControlType tipoControllo;
 
 
     private Transform parentofCheckpoints;
@@ -14,7 +14,8 @@ public class PlayerMode : MonoBehaviour
     private int checkpointCount = 0;
     private int checkpointLayer;
     private Car carController;
-   
+    private GameObject[] checkpoints;
+    
 
     public float BestLapTime { get; private set; } = Mathf.Infinity;
     public float LastLapTime { get; private set; } = 0;
@@ -25,10 +26,16 @@ public class PlayerMode : MonoBehaviour
 
     void Awake()
     {
-        parentofCheckpoints = GameObject.Find("Checkpoints").transform;
+        checkpoints = GameObject.Find("Checkpoints").GetComponentsInChildren<GameObject>();
+		parentofCheckpoints = GameObject.Find("Checkpoints").transform;
         checkpointCount = parentofCheckpoints.childCount;
         checkpointLayer = LayerMask.NameToLayer("Checkpoint");
         carController = GetComponent<Car>();
+        foreach (var item in checkpoints)
+        {
+            Debug.Log($"{item.transform.position}");
+
+		}
     }
 
     void StartLap()
@@ -89,9 +96,11 @@ public class PlayerMode : MonoBehaviour
         }
 
         //still need to do this part, Micheal is working on it
+        //RE from Mike: i worked on it :D
         else if(tipoControllo == ControlType.AI)
         {
-
+            //Vector3 path = new Vector3(carController.transform.position.x - checkpoints[checkpointCount]);
+            
         }
     }
-}
+    }
