@@ -1,3 +1,4 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,28 +22,63 @@ public class Car : MonoBehaviour
     public float Steer { get; set; }
     public float Throttle { get; set; }
 
-   
 
-    private Rigidbody _rigidbody;
+    private PlayerMode pm;
+	private Rigidbody _rigidbody;
 
     void Start()
     {
-        _rigidbody = GetComponent<Rigidbody>();
+		pm = GetComponent<PlayerMode>();
+		_rigidbody = GetComponent<Rigidbody>();
         _rigidbody.centerOfMass = centerMassa.localPosition;
     }
 
     void FixedUpdate()
     {
-        PlayerMode pm = GetComponent<PlayerMode>();
+        //for the player
         if(pm.tipoControllo == PlayerMode.ControlType.HumanInput)
         {
-            Debug.Log($"Va:{Input.GetAxis("Vertical")}, Ha:{Input.GetAxis("Horizontal")}");
-            wheelColliderLXback.motorTorque = Input.GetAxis("Vertical") * motorTorque;
-            wheelColliderRXback.motorTorque = Input.GetAxis("Vertical") * motorTorque;
-            wheelColliderLXfront.steerAngle = Input.GetAxis("Horizontal") * maxTurn;
-            wheelColliderRXfront.steerAngle = Input.GetAxis("Horizontal") * maxTurn;
+            SetInput(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
+        }
+        
+        //algorithm for the CPU✨
+        else if(pm.tipoControllo == PlayerMode.ControlType.AI)
+        {
+            float forwardAmount, steerAmount;
+            Vector3 targetPos = getTargetPos();
+			Vector3 movingDirectionPos = (targetPos - transform.position).normalized;
+			float dot = Vector3.Dot(transform.forward, movingDirectionPos);
+            float distanceToTarget = Vector3.Distance(transform.forward, movingDirectionPos);
+            float angleToDir = Vector3.SignedAngle(transform.forward, movingDirectionPos, Vector3.up);
+
+            //target in front
+			if (dot > 0f) forwardAmount = 1f;
+
+            //target behind
+            else if(distanceToTarget > 20f) forwardAmount = 1f;
+
+            else forwardAmount = -1f;
+               
+
+			if (angleToDir > 0f) steerAmount = 1f;
+			else steerAmount = -1f;
+
+            SetInput(forwardAmount, steerAmount);
         }
     }
 
-    
+    public void SetInput(float forwardAmount, float steerAmount) 
+    {
+        //forwardAmount > 0: forward, < 0: reverse, = 0: stop
+        //steerAmount > 0: right, < 0: left, = 0: no turn
+		wheelColliderLXback.motorTorque = forwardAmount * motorTorque;
+		wheelColliderRXback.motorTorque = forwardAmount * motorTorque;
+		wheelColliderLXfront.steerAngle = steerAmount * maxTurn;
+		wheelColliderRXfront.steerAngle = steerAmount * maxTurn;
+	}
+
+    Vector3 getTargetPos()
+    {
+        return pm.checkpoints[pm.currentPlayerCheck].transform.position;
+    }
 }

@@ -8,6 +8,8 @@ TagManager:
   - Spawn
   - TopCollider
   - Environment
+  - Checkpoints
+  - Speed
   layers:
   - Default
   - TransparentFX
