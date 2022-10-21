@@ -34,7 +34,6 @@ public class TextChange : MonoBehaviour
             CurrentLapText.text = $"LAP : {currentLap}";
         }
 
-
         if(UpdateTextForPlayer.CurrentLapTime != currentTime)
         {
             currentTime = UpdateTextForPlayer.CurrentLapTime;

@@ -5,16 +5,15 @@ using UnityEngine;
 
 public class PlayerMode : MonoBehaviour
 {
-    public enum ControlType { HumanInput, AI }
-    public ControlType tipoControllo;
+	[NonSerialized] public int currentPlayerCheck = 0;
+	[NonSerialized] public GameObject[] checkpoints;
 
+	public enum ControlType { HumanInput, AI }
+    public ControlType tipoControllo;
 
     private float lapTimer;
     private int checkpointCount = 0;
     private int checkpointLayer;
-    [NonSerialized]public int currentPlayerCheck = 0;
-
-	[NonSerialized] public GameObject[] checkpoints;
     
     public float BestLapTime { get; set; } = Mathf.Infinity;
     public float LastLapTime { get; set; } = 0;
@@ -39,8 +38,10 @@ public class PlayerMode : MonoBehaviour
     {
         LastLapTime = Time.time - lapTimer;
         BestLapTime = Mathf.Min(LastLapTime, BestLapTime);
-        //no visual checks for beep boop ;)
-        if (tipoControllo == ControlType.HumanInput) foreach (var i in checkpoints) i.GetComponent<Renderer>().enabled = true;
+        
+        if (tipoControllo == ControlType.HumanInput)
+			foreach (var i in checkpoints) i.GetComponent<Renderer>().enabled = true;
+
         currentPlayerCheck = 0;
 	}
 
@@ -50,19 +51,16 @@ public class PlayerMode : MonoBehaviour
 
 		if (collider.gameObject.GetInstanceID() == checkpoints[12].GetInstanceID() && transform.GetComponent<Car>().isSpedUp)
 		{
-			Debug.Log("STOOOP");
 			transform.GetComponent<Car>().isSpedUp = false;
 			transform.GetComponent<Car>().SetInput(-1f, 0f);
 
 		}
-			//for the player 
+		//for the player 
 		if (tipoControllo == ControlType.HumanInput)
         {
 			//if we are passing by the start
 			if (collider.gameObject.GetInstanceID() == checkpoints[0].GetInstanceID())
 			{
-				//Debug.Log($"{currentPlayerCheck}, {checkpoints[currentPlayerCheck]}");
-
                 //if this is the first check
 				if (currentPlayerCheck == 0)
 				{
@@ -88,13 +86,11 @@ public class PlayerMode : MonoBehaviour
 					Debug.Log(currentPlayerCheck);
 					return;
 				}
-				//Debug.Log($"{currentPlayerCheck}, {checkpoints[currentPlayerCheck].GetInstanceID()}");
 				checkpoints[currentPlayerCheck].GetComponent<Renderer>().enabled = false;
 				currentPlayerCheck++;
 			}
 		}
-
-		//beep boop?
+		//ai?
         else if (tipoControllo == ControlType.AI)
 		{
 			Debug.Log($"[AI] Checkpoint: {currentPlayerCheck}, {checkpointCount}");
@@ -124,10 +120,7 @@ public class PlayerMode : MonoBehaviour
 				currentPlayerCheck++;
 			}
 		}
-		
-
 	}
-
     void Update()
     {
         CurrentLapTime = lapTimer > 0 ? Time.time - lapTimer : 0;
