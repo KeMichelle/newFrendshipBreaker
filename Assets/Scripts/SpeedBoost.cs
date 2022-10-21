@@ -12,20 +12,30 @@ public class SpeedBoost : MonoBehaviour
     //ludicrous speed!
     private void OnTriggerEnter(Collider other)
     {
-        if (!spedUp)
+		if (!spedUp)
         {
-            trespasser = other.transform.GetComponentInParent<Car>();
+			spedUp = !spedUp;
+			trespasser = other.transform.GetComponentInParent<Car>();
+			trespasser.isSpedUp = true;
 		    originalSpeed = trespasser.motorTorque;
-            trespasser.motorTorque = 9999;
-            spedUp = !spedUp;
-            return;
+            trespasser.motorTorque = 13000;
+			//Debug.Log($"(SpeedBoost.cs.onTriggerEnter)OriginalSpeed: {originalSpeed}");
+			//Debug.Log($"(SpeedBoost.cs.onTriggerEnter)Trespasser speed: {trespasser.motorTorque}");
+			//Debug.Log($"(SpeedBoost.cs.onTriggerEnter)SpedUp: {spedUp}");
         }
 		
 	}
 
     private void OnTriggerExit(Collider other)
     {
-		trespasser = other.transform.GetComponentInParent<Car>();
+		if (spedUp)
+		{
+		spedUp = !spedUp;
 		trespasser.motorTorque = originalSpeed;
+		//Debug.Log($"(SpeedBoost.cs.onTriggerExit)OriginalSpeed: {originalSpeed}");
+		//Debug.Log($"(SpeedBoost.cs.onTriggerExit)Trespasser speed: {trespasser.motorTorque}");
+		//Debug.Log($"(SpeedBoost.cs.onTriggerExit)Trespasser speed: {spedUp}");
+		}
+        
 	}
 }

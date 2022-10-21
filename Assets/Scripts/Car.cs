@@ -18,6 +18,7 @@ public class Car : MonoBehaviour
     public Transform centerMassa;
     public float motorTorque;
     public float maxTurn;
+    [NonSerialized] public bool isSpedUp; 
 
     public float Steer { get; set; }
     public float Throttle { get; set; }
@@ -51,14 +52,19 @@ public class Car : MonoBehaviour
             float distanceToTarget = Vector3.Distance(transform.forward, movingDirectionPos);
             float angleToDir = Vector3.SignedAngle(transform.forward, movingDirectionPos, Vector3.up);
 
-            //target in front
+			Debug.Log($"Distanza AI-Check: {distanceToTarget}");
+
+			//target in front
 			if (dot > 0f) forwardAmount = 1f;
+            else 
+            {
+                
+                //target behind and far
+                if (distanceToTarget > 1.5f) forwardAmount = 1f;
 
-            //target behind
-            else if(distanceToTarget > 20f) forwardAmount = 1f;
-
-            else forwardAmount = -1f;
-               
+                //target behind close
+                else forwardAmount = -1f;
+            }
 
 			if (angleToDir > 0f) steerAmount = 1f;
 			else steerAmount = -1f;

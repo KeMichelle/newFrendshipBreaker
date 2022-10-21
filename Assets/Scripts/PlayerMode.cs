@@ -47,14 +47,21 @@ public class PlayerMode : MonoBehaviour
     private void OnTriggerEnter(Collider collider)
     {
 		if (collider.gameObject.layer != checkpointLayer) return; //do nothing
-        
-        //for the player 
-        if(tipoControllo == ControlType.HumanInput)
+
+		if (collider.gameObject.GetInstanceID() == checkpoints[12].GetInstanceID() && transform.GetComponent<Car>().isSpedUp)
+		{
+			Debug.Log("STOOOP");
+			transform.GetComponent<Car>().isSpedUp = false;
+			transform.GetComponent<Car>().SetInput(-1f, 0f);
+
+		}
+			//for the player 
+		if (tipoControllo == ControlType.HumanInput)
         {
 			//if we are passing by the start
 			if (collider.gameObject.GetInstanceID() == checkpoints[0].GetInstanceID())
 			{
-				Debug.Log($"{currentPlayerCheck}, {checkpoints[currentPlayerCheck]}");
+				//Debug.Log($"{currentPlayerCheck}, {checkpoints[currentPlayerCheck]}");
 
                 //if this is the first check
 				if (currentPlayerCheck == 0)
@@ -73,6 +80,7 @@ public class PlayerMode : MonoBehaviour
 			}
 			else if (collider.gameObject.GetInstanceID() == checkpoints[currentPlayerCheck].GetInstanceID())
 			{
+				//the check before the start
 				if (currentPlayerCheck == checkpointCount - 1)
 				{
 					checkpoints[currentPlayerCheck].GetComponent<Renderer>().enabled = false;
@@ -80,7 +88,7 @@ public class PlayerMode : MonoBehaviour
 					Debug.Log(currentPlayerCheck);
 					return;
 				}
-				Debug.Log($"{currentPlayerCheck}, {checkpoints[currentPlayerCheck].GetInstanceID()}");
+				//Debug.Log($"{currentPlayerCheck}, {checkpoints[currentPlayerCheck].GetInstanceID()}");
 				checkpoints[currentPlayerCheck].GetComponent<Renderer>().enabled = false;
 				currentPlayerCheck++;
 			}
@@ -89,6 +97,7 @@ public class PlayerMode : MonoBehaviour
 		//beep boop?
         else if (tipoControllo == ControlType.AI)
 		{
+			Debug.Log($"[AI] Checkpoint: {currentPlayerCheck}, {checkpointCount}");
 			//if we are passing by the start
 			if (collider.gameObject.GetInstanceID() == checkpoints[0].GetInstanceID())
 			{
@@ -109,6 +118,7 @@ public class PlayerMode : MonoBehaviour
 			{
 				if (currentPlayerCheck == checkpointCount - 1)
 				{
+					currentPlayerCheck = 0;
 					return;
 				}
 				currentPlayerCheck++;
