@@ -52,13 +52,12 @@ public class Car : MonoBehaviour
             float distanceToTarget = Vector3.Distance(transform.forward, movingDirectionPos);
             float angleToDir = Vector3.SignedAngle(transform.forward, movingDirectionPos, Vector3.up);
 
-			Debug.Log($"Distanza AI-Check: {distanceToTarget}");
+			//Debug.Log($"Distanza AI-Check: {distanceToTarget}");
 
 			//target in front
 			if (dot > 0f) forwardAmount = 1f;
             else 
             {
-                
                 //target behind and far
                 if (distanceToTarget > 1.5f) forwardAmount = 1f;
 

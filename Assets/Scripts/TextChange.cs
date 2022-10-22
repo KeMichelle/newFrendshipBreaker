@@ -21,6 +21,11 @@ public class TextChange : MonoBehaviour
     private float bestLapTime;
     private float lastLapTime;
 
+    void Awake()
+    {
+        currentLap = 0;
+    }
+
     void Update()
     {
         if(UpdateTextForPlayer == null)

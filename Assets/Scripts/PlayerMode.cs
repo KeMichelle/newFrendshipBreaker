@@ -18,7 +18,7 @@ public class PlayerMode : MonoBehaviour
     public float BestLapTime { get; set; } = Mathf.Infinity;
     public float LastLapTime { get; set; } = 0;
     public float CurrentLapTime { get; set; } = 0;
-    public int CurrentLap { get; set; } = 0;
+    public int CurrentLap { get; set; }
     public int totalLaps { get; set; } = 3;
 
     void Awake()
@@ -30,7 +30,7 @@ public class PlayerMode : MonoBehaviour
 
     void StartLap()
     {
-        CurrentLap++;
+		CurrentLap++;
         lapTimer = Time.time;
     }
 
@@ -38,57 +38,56 @@ public class PlayerMode : MonoBehaviour
     {
         LastLapTime = Time.time - lapTimer;
         BestLapTime = Mathf.Min(LastLapTime, BestLapTime);
-        
-        if (tipoControllo == ControlType.HumanInput)
-			foreach (var i in checkpoints) i.GetComponent<Renderer>().enabled = true;
-
         currentPlayerCheck = 0;
 	}
 
     private void OnTriggerEnter(Collider collider)
     {
-		if (collider.gameObject.layer != checkpointLayer) return; //do nothing
+		if (collider.gameObject.layer != checkpointLayer)
+			return; //do nothing
 
 		if (collider.gameObject.GetInstanceID() == checkpoints[12].GetInstanceID() && transform.GetComponent<Car>().isSpedUp)
 		{
 			transform.GetComponent<Car>().isSpedUp = false;
 			transform.GetComponent<Car>().SetInput(-1f, 0f);
-
 		}
 		//for the player 
 		if (tipoControllo == ControlType.HumanInput)
         {
+			Debug.Log("prova");
 			//if we are passing by the start
 			if (collider.gameObject.GetInstanceID() == checkpoints[0].GetInstanceID())
 			{
-                //if this is the first check
-				if (currentPlayerCheck == 0)
-				{
-					StartLap();
-					Debug.Log("started new lap");
+					//if this is the first check
+					if (currentPlayerCheck == 0)
+					{
+						StartLap();
+						Debug.Log("started new lap");
+					}
+					//if we did all of previous checks and are ending the lap
+					else if(currentPlayerCheck == checkpointCount )
+					{
+						Debug.Log("fine lap");
+						Debug.Log($"{CurrentLap}");
+						EndLap();
+						Debug.Log($"Ended new lap - laptime was {LastLapTime} seconds");
+					}
+					currentPlayerCheck++;
 				}
-                //if we did all of previous checks and are ending the lap
-                else
-                {
-                    EndLap();
-					Debug.Log($"Ended new lap - laptime was {LastLapTime} seconds");
-                } 
-                checkpoints[0].GetComponent<Renderer>().enabled = false;
-                currentPlayerCheck++;
-			}
-			else if (collider.gameObject.GetInstanceID() == checkpoints[currentPlayerCheck].GetInstanceID())
-			{
-				//the check before the start
-				if (currentPlayerCheck == checkpointCount - 1)
+				else if (collider.gameObject.GetInstanceID() == checkpoints[currentPlayerCheck].GetInstanceID())
 				{
-					checkpoints[currentPlayerCheck].GetComponent<Renderer>().enabled = false;
-					checkpoints[0].GetComponent<Renderer>().enabled = true;
-					Debug.Log(currentPlayerCheck);
-					return;
+					//the check before the start 
+					if (currentPlayerCheck == checkpointCount - 1)
+					{
+						//checkpoints[currentPlayerCheck].GetComponent<Renderer>().enabled = false;
+						//checkpoints[0].GetComponent<Renderer>().enabled = true;
+						Debug.Log(currentPlayerCheck);
+						return;
+					}
+					//checkpoints[currentPlayerCheck].GetComponent<Renderer>().enabled = false;
+					currentPlayerCheck++;
 				}
-				checkpoints[currentPlayerCheck].GetComponent<Renderer>().enabled = false;
-				currentPlayerCheck++;
-			}
+			
 		}
 		//ai?
         else if (tipoControllo == ControlType.AI)

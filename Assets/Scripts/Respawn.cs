@@ -29,7 +29,7 @@ public class Respawn : MonoBehaviour
     public void respawnCar()
     {
         GameObject spawnPoint = getClosestSpawnPoint();
-        player.transform.SetPositionAndRotation(spawnPoint.transform.position, new Quaternion(0, 0, 0, 0));
+        player.transform.SetPositionAndRotation(spawnPoint.transform.position, spawnPoint.transform.rotation);
         Physics.SyncTransforms();
     }
 
